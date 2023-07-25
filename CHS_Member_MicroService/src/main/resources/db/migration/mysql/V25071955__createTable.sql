@@ -1,0 +1,13 @@
+create table society (id integer not null auto_increment, active_status bit, address_line1 varchar(255), area varchar(255), city varchar(255), country varchar(255), pin_code varchar(255), state varchar(255), maintanance_amount double precision, registration_date date, registration_number varchar(255) not null, societ_name varchar(255) not null, total_members integer, updation_date date, verification_status bit, board_member_id integer, cashier_id integer, chirman_id integer, primary key (id));
+create table society_members_relation (society_id integer not null, members_id integer not null);
+create table user_credentials (id integer not null auto_increment, email_id varchar(255) not null, password varchar(255) not null, flat_no varchar(255), wing varchar(255), creation_date date, mobile_number varchar(255), name varchar(255) not null, password_flag bit, role varchar(255), updated_date date, primary key (id));
+create table user_credentials_society (member_id integer not null, society_id integer not null);
+alter table society add constraint UK_ff6rc6jyi8ypbqtn3au1ck189 unique (societ_name);
+alter table user_credentials add constraint UK_gs2owqgwtl05te4yfpa17jbhd unique (email_id);
+alter table society add constraint FKpuyuskhbe9w051xtnbsldfjcy foreign key (board_member_id) references user_credentials (id);
+alter table society add constraint FK5ocv7vwp8dbo64uo16ciiw5nf foreign key (cashier_id) references user_credentials (id);
+alter table society add constraint FK1bb7w9svh9fp6p4w7l0xiok9 foreign key (chirman_id) references user_credentials (id);
+alter table society_members_relation add constraint FK6uwr313pnpemqwwax2o0ilr2t foreign key (members_id) references user_credentials (id);
+alter table society_members_relation add constraint FKkhyccj66m82uff52mdqhgi5o9 foreign key (society_id) references society (id);
+alter table user_credentials_society add constraint FK5u43utk3fcj4edexytb4c424i foreign key (society_id) references society (id);
+alter table user_credentials_society add constraint FKlxkate4elp3xlif71xbimt8d3 foreign key (member_id) references user_credentials (id);
